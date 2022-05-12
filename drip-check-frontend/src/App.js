@@ -1,22 +1,20 @@
 import './App.css';
 import Header from './Header.js';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import DripCard from './DripCard.js';
+import SwipeButtons from './SwipeButtons';
+import Profile from './Profile.js';
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+      <Header />
         <Routes>
-          {/* <Route path="/profile">
-            <h2> I am profile page </h2>
-          </Route>
-          <Route path="/">
-            <h2> I am main page </h2>
-          </Route> */}
-
-        </Routes>        
-      </Router>      
+          <Route path='/' element={<><DripCard /><SwipeButtons/></>}/>
+          <Route path='/profile' element={<Profile />}/>
+        </Routes>
+      </Router>
     </div>
   );
 }

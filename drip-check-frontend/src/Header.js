@@ -1,22 +1,30 @@
 import React from 'react';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import IconButton from '@mui/material/IconButton';
 import './Header.css';
+import { Link } from "react-router-dom";
+import Logo from './storage/drip-logo.png'
 
 function Header() {
     return (
         <div className='header'>
+            <Link to="/profile">
+                <IconButton>
+                    <AccountBoxIcon className="header__icon" fontSize='large'/>
+                </IconButton> 
+            </Link>
+            <Link to="/">
+                <IconButton>
+                    <img 
+                    className="header__logo" 
+                    src={Logo} 
+                    alt="Logo"
+                    />
+                </IconButton>
+            </Link>           
             <IconButton>
-                <AccountBoxIcon className="header__icon" fontSize='large'/>
-            </IconButton>            
-            <img 
-                className="header__logo" 
-                src="http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/droplet.png" 
-                alt="Logo"
-            />
-            <IconButton>
-                <AddCircleIcon className="header__icon" fontSize='large'/>
+                <AddAPhotoIcon className="header__icon" fontSize='large'/>
             </IconButton>
         </div>
     );
