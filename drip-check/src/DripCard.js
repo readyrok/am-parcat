@@ -17,34 +17,34 @@ function DripCard() {
     let count = 1;
 
     docs.forEach((doc) => {
-        doc.name = "Zendaya " + count;
+        doc.name = "Zendaya" + count;
         data.push(doc);
         count++;
     });
 
-    // const [photos, setPhotos] = useState([{
-    //     name: Zendaya1,
-    //     url: firstPic
-    // },
-    // {
-    //     name: Zendaya3,
-    //     url: thirdPic
-    // },
-    // {
-    //     name: Zendaya4,
-    //     url: fourthPic
-    // },
-    // {
-    //     name: Zendaya5,
-    //     url: fifthPic
-    // },
-    // {
-    //     name: Zendaya1,
-    //     url: firstPic
-    // }]);
+    const [photos, setPhotos] = useState([{
+        name: 'Zendaya1',
+        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
+    },
+    {
+        name: 'Zendaya3',
+        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
+    },
+    {
+        name: 'Zendaya4',
+        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
+    },
+    {
+        name: 'Zendaya5',
+        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
+    },
+    {
+        name: 'Zendaya2',
+        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f" 
+    }]);
 
-    // console.log(data);
-    // console.log('hello');
+    console.log(data);
+    console.log(photos);
 
     return (
         <div>

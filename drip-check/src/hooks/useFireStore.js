@@ -19,7 +19,7 @@ const useFireStore = (collect) => {
         fetchData();
 
         setDocs(documents);
-    },[collect])
+    },[collect]);
 
     return { docs };
 }
