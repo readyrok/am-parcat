@@ -8,9 +8,9 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCHvWQP-FVNf6x843p-2NBIXfCiiATu8c0",
-  authDomain: "drip-check.firebaseapp.com",
-  projectId: "drip-check",
-  storageBucket: "drip-check.appspot.com",
+  authDomain: "drip-check-2.firebaseapp.com",
+  projectId: "drip-check-2",
+  storageBucket: "drip-check-2.appspot.com",
   messagingSenderId: "1070280436225",
   appId: "1:1070280436225:web:9d3d97c3320c3b69262e00"
 };

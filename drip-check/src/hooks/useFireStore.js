@@ -1,26 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { projectFireStore } from "../firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 
 const useFireStore = (collect) => {
     const [docs, setDocs] = useState([]);
+    
+    const colRef = collection(projectFireStore, collect);
 
-    useEffect(() => {
-        let documents = [];
+    let documents = [];
 
-        async function fetchData() {
-            const querySnapshot = await getDocs(collection(projectFireStore, collect));
-
-            querySnapshot.forEach((doc) => {
-                documents.push({...doc.data()});
-            });
-        }
+    getDocs(colRef).then((snapshot)=>{
         
-        fetchData();
+        snapshot.docs.forEach((doc)=>{
+            documents.push({...doc.data()});
+        })
 
         setDocs(documents);
-    },[collect]);
-
+    });
+    
     return { docs };
 }
 

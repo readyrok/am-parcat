@@ -13,38 +13,21 @@ import useFireStore from './hooks/useFireStore';
 function DripCard() {
     const { docs } = useFireStore("images");
 
-    let data = [];
-    let count = 1;
+    let count = 1;    
 
     docs.forEach((doc) => {
         doc.name = "Zendaya" + count;
-        data.push(doc);
         count++;
     });
 
-    const [photos, setPhotos] = useState([{
-        name: 'Zendaya1',
-        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
-    },
-    {
-        name: 'Zendaya3',
-        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
-    },
-    {
-        name: 'Zendaya4',
-        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
-    },
-    {
-        name: 'Zendaya5',
-        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f"
-    },
-    {
-        name: 'Zendaya2',
-        url: "https://firebasestorage.googleapis.com/v0/b/drip-check.appspot.com/o/5.jpg?alt=media&token=4c638238-9c1e-4923-a114-b298438a1b6f" 
-    }]);
+    const [photos, setPhotos] = useState(docs);
 
-    console.log(data);
-    console.log(photos);
+    // console.log(data);
+    // console.log(photos);
+    // console.log(Array.isArray(docs));
+    // console.log(docs);
+    // console.log("Here");
+    
 
     return (
         <div>
