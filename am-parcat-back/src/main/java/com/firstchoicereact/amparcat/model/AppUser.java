@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Subscriber {
+public class AppUser {
     @Id
     @SequenceGenerator(
             name = "subscriber_sequence",
@@ -19,16 +19,16 @@ public class Subscriber {
     private String userName;
     private String email;
 
-    public Subscriber() {
+    public AppUser() {
     }
 
-    public Subscriber(Long id, String userName, String email) {
+    public AppUser(Long id, String userName, String email) {
         this.id = id;
         this.userName = userName;
         this.email = email;
     }
 
-    public Subscriber(String userName, String email) {
+    public AppUser(String userName, String email) {
         this.userName = userName;
         this.email = email;
     }

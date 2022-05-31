@@ -1,12 +1,12 @@
 package com.firstchoicereact.amparcat.repository;
 
-import com.firstchoicereact.amparcat.model.Subscriber;
+import com.firstchoicereact.amparcat.model.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
-    Optional<Subscriber> findSubscriberByEmail(String email);
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+    Optional<AppUser> findSubscriberByEmail(String email);
 }
