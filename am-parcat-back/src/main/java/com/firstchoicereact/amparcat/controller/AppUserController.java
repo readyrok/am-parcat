@@ -28,15 +28,16 @@ public class AppUserController {
     }
 
     @DeleteMapping(path = "{subscriberId}")
-    public void deleteUser(@PathVariable("subscriberId") Long subscriberId){
+    public void deleteUser(@PathVariable("subscriberId") String subscriberId){
         appUserService.deleteUser(subscriberId);
     }
 
     @PutMapping(path = "{subscriberId}")
     public void updateUser(
-            @PathVariable("subscriberId") Long subscriberId,
+            @PathVariable("subscriberId") String subscriberId,
             @RequestParam(required = false) String userName,
-            @RequestParam(required = false) String email){
-        appUserService.updateUser(subscriberId, userName, email);
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String password){
+        appUserService.updateUser(subscriberId, userName, email, password);
     }
 }

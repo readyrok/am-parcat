@@ -15,11 +15,13 @@ public class AppUserConfig {
         return args -> {
             AppUser sebastian = new AppUser(
                     "Sebastian",
-                    "sebastian@gmail.com"
+                    "sebastian@gmail.com",
+                    "pass1234"
             );
             AppUser luca = new AppUser(
                     "Luca",
-                    "luca@gmail.com"
+                    "luca@gmail.com",
+                    "pass1234"
             );
             subscriberRepository.saveAll(List.of(sebastian, luca));
         };

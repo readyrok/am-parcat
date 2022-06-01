@@ -1,68 +1,32 @@
 package com.firstchoicereact.amparcat.model;
 
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class AppUser {
     @Id
-    @SequenceGenerator(
-            name = "subscriber_sequence",
-            sequenceName = "subscriber_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "subscriber_sequence"
-    )
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private String userName;
     private String email;
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
-    public AppUser() {
-    }
-
-    public AppUser(Long id, String userName, String email) {
-        this.id = id;
+    public AppUser(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
-    }
-
-    public AppUser(String userName, String email) {
-        this.userName = userName;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        this.password = password;
     }
 }
