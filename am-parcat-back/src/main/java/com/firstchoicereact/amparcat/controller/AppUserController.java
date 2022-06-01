@@ -34,10 +34,10 @@ public class AppUserController {
         appUserService.saveRole(role);
     }
 
-    @PostMapping(path = "/save-role-to-user")
-    public void saveRoleToUser(@RequestBody AppUser appUser, Role role) {
-        appUserService.addRoleToUser(appUser.getUserName(), role.getName());
-    }
+//    @PostMapping(path = "/save-role-to-user")
+//    public void saveRoleToUser(@RequestBody AppUser appUser, Role role) {
+//        appUserService.addRoleToUser(appUser.getUserName(), role.getName());
+//    }
 
     @DeleteMapping(path = "{appUserId}")
     public void deleteUser(@PathVariable("appUserId") String subscriberId){
