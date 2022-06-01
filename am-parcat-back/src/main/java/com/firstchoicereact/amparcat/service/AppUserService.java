@@ -6,24 +6,30 @@ import com.firstchoicereact.amparcat.repository.AppUserRepository;
 import com.firstchoicereact.amparcat.repository.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
 @Slf4j
-public class AppUserService {
+public class AppUserService implements UserDetailsService {
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AppUserService(AppUserRepository appUserRepository, RoleRepository roleRepository) {
+    public AppUserService(AppUserRepository appUserRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<AppUser> getUsers() {
@@ -36,6 +42,8 @@ public class AppUserService {
         if(appUserByEmail.isPresent()){
             throw new IllegalStateException("Email already taken!");
         }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         appUserRepository.save(user);
     }
@@ -80,5 +88,22 @@ public class AppUserService {
         AppUser user = appUserRepository.findAppUserByUserName(userName);
         Role role = roleRepository.findRoleByName(roleName);
         user.getRoles().add(role);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String appUserName) throws UsernameNotFoundException {
+        AppUser appUser = appUserRepository.findAppUserByUserName(appUserName);
+
+        if(appUser == null) {
+            throw new UsernameNotFoundException("User not found in database!");
+        }
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        appUser.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+
+        return new User(appUser.getUserName(), appUser.getPassword(), authorities);
     }
 }

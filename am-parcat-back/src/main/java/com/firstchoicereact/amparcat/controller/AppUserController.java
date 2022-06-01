@@ -35,8 +35,8 @@ public class AppUserController {
     }
 
     @PostMapping(path = "/save-role-to-user")
-    public void saveRoleToUser(@RequestBody RoleToUserForm form) {
-        appUserService.addRoleToUser(form.getAppUserName(), form.getRoleName());
+    public void saveRoleToUser(@RequestBody AppUser appUser, Role role) {
+        appUserService.addRoleToUser(appUser.getUserName(), role.getName());
     }
 
     @DeleteMapping(path = "{appUserId}")
@@ -54,8 +54,8 @@ public class AppUserController {
     }
 }
 
-@Data
-class RoleToUserForm {
-    private String appUserName;
-    private String roleName;
-}
+//@Data
+//class RoleToUserForm {
+//    private String appUserName;
+//    private String roleName;
+//}
