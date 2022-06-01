@@ -2,6 +2,7 @@ package com.firstchoicereact.amparcat.service;
 
 import com.firstchoicereact.amparcat.model.FileEntity;
 import com.firstchoicereact.amparcat.repository.FileRepository;
+import com.firstchoicereact.amparcat.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
