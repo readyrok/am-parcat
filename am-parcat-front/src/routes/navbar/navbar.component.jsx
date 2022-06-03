@@ -10,7 +10,7 @@ const Navbar = () => {
 					Logo
 				</Link>
 				<div className="nav-links-container">
-					<Link className="nav-link" to="/top">
+					<Link className="nav-link" to="/plate">
 						The BESTEST
 					</Link>
 					<Link className="nav-link" to="/upload">
