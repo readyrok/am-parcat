@@ -1,14 +1,32 @@
 .navigation {
-    height: 70px;
+    height: 100px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    background-color: rgb(221, 221, 221);
   
     .logo-container {
-      height: 100%;
-      width: 70px;
-      padding: 25px;
+      height: 80%;
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px;
+      .logo-link {
+        width: 100%;
+        height: 100%;
+        padding: 15px 15px;
+        cursor: pointer;
+        .logo-image{
+          height: 100%;
+          width: 100%;
+          background-image: url("./images/am-parcat-ca-un-sef-logo-mic.png");
+          background-size: 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
     }
   
     .nav-links-container {

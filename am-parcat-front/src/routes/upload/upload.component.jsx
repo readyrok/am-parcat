@@ -1,6 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import FileUploader from './fileUploader.component';
+import TextField from '@mui/material/TextField';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 // import TagInput from '../../components/tags/tagsinput.component';
 
 const UPLOAD_URL = 'http://localhost:8080/files/';
@@ -37,30 +44,65 @@ const UploadFile = () => {
 
 	return (
 		<Fragment>
-			<h1>Incepe !</h1>
+			<Typography variant="h3" gutterBottom component="div" style={{ padding: "10px"}}>
+				Upload your photo
+			</Typography>
+			{/* <h1>Upload your photo</h1> */}
 			<form onSubmit={submitForm}>
-				<label htmlFor={plateNumber}>Your Plate number :</label>
-				<input
-					type="text"
-					value={plateNumber}
-					placeholder="Ex: B11AAA"
-					onChange={(e) => setPlateNumber(e.target.value)}
-				/>
-				<label htmlFor={address}>The Address :</label>
-				<input
-					type="text"
-					value={address}
-					placeholder="Ex: Constanta"
-					onChange={(e) => setAddress(e.target.value)}
-				/>
-				{/* <TagInput onTagAdded={(tag) => newTagHandler(tag)} /> */}
-				<label htmlFor={tag}>The tag :</label>
-				<input
-					type="text"
-					value={tag}
-					placeholder="Ex: mmw"
-					onChange={(e) => setTag(e.target.value)}
-				/>
+				<div>
+					
+						{/* <label htmlFor={plateNumber}>Plate Number: </label> */}
+						<TextField
+							required
+							id="outlined-required"
+							label="Plate number"
+							defaultValue="Ex: B11AAA"
+							style={{ padding: "10px"}}
+							onChange={(e) => setPlateNumber(e.target.value)}
+							/>
+						{/* <input
+							type="text"
+							value={plateNumber}
+							placeholder="Ex: B11AAA"
+							
+						/> */}
+					
+					
+						{/* <label htmlFor={address}>Address: </label> */}
+						<TextField
+							required
+							id="outlined-required"
+							label="City"
+							defaultValue="Ex: Constanta"
+							style={{ padding: "10px"}}
+							onChange={(e) => setAddress(e.target.value)}
+							/>
+						{/* <input
+							type="text"
+							value={address}
+							placeholder="Ex: Constanta"
+							onChange={(e) => setAddress(e.target.value)}
+						/> */}
+					
+					
+						{/* <TagInput onTagAdded={(tag) => newTagHandler(tag)} /> */}
+						{/* <label htmlFor={tag}>Tags: </label> */}
+						<TextField
+							required
+							id="outlined-required"
+							label="Tags"
+							defaultValue="Ex: bmw"
+							style={{ padding: "10px"}}
+							onChange={(e) => setTag(e.target.value)}
+							/>
+						{/* <input
+							type="text"
+							value={tag}
+							placeholder="Ex: bmw"
+							onChange={(e) => setTag(e.target.value)}
+						/> */}
+					
+				</div>
 				<FileUploader
 					onFileSelect={(file) => setSelectedFile(file)}
 					onFileSelectError={(error) => {
@@ -68,7 +110,9 @@ const UploadFile = () => {
 						alert(error);
 					}}
 				/>
-				<button>Apasa !</button>
+				<div style={{ padding: "10px"}}>
+					<Button variant="contained">Upload</Button>
+				</div>				
 			</form>
 		</Fragment>
 	);

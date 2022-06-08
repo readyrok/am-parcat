@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 const FileUploader = ({ onFileSelect, onFileSelectError }) => {
 	const handleFileInput = (e) => {
@@ -11,8 +12,8 @@ const FileUploader = ({ onFileSelect, onFileSelectError }) => {
 	};
 
 	return (
-		<div className="file-uploader">
-			<input type="file" onChange={handleFileInput} />
+		<div className="file-uploader" style={{ padding: "10px"}}>
+			<Button style={{ padding: "10px"}} variant="contained"><input type="file" onChange={handleFileInput} /></Button>
 		</div>
 	);
 };
