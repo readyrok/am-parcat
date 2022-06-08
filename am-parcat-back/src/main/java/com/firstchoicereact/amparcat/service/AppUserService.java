@@ -1,60 +1,76 @@
 package com.firstchoicereact.amparcat.service;
 
 import com.firstchoicereact.amparcat.model.AppUser;
-import com.firstchoicereact.amparcat.repository.AppUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.firstchoicereact.amparcat.model.Role;
+import com.firstchoicereact.amparcat.repository.AppUserRepo;
+import com.firstchoicereact.amparcat.repository.RoleRepo;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
-public class AppUserService {
-    private final AppUserRepository appUserRepository;
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
+public class AppUserService implements UserDetailsService {
+    private final AppUserRepo appUserRepo;
+    private final RoleRepo roleRepo;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public AppUserService(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public AppUser saveUser(AppUser appUser){
+        log.info("Saving new user to database");
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        return appUserRepo.save(appUser);
     }
 
-    public List<AppUser> getUsers() {
-        return appUserRepository.findAll();
+    public Role saveRole(Role role){
+        log.info("Saving new role to database");
+        return roleRepo.save(role);
     }
 
-    public void addUser(AppUser user){
-        Optional<AppUser> subscriberByEmail = appUserRepository.findSubscriberByEmail(user.getEmail());
-        if(subscriberByEmail.isPresent()){
-            throw new IllegalStateException("Email already taken!");
+    public void addRoleToUser(String username, String roleName){
+        log.info("Adding role to user");
+        //TODO Validations on userName
+        AppUser appUser = appUserRepo.findByUsername(username);
+        Role role = roleRepo.findByName(roleName);
+        appUser.getRoles().add(role);
+    }
+
+    public AppUser getUser(String userName){
+        log.info("Fetching user");
+        return appUserRepo.findByUsername(userName);
+    }
+
+    public List<AppUser> getUsers(){
+        log.info("Fetching all users");
+        return appUserRepo.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser user = appUserRepo.findByUsername(username);
+
+        if(user == null) {
+            log.error("User not found in database");
+            throw new UsernameNotFoundException("User not found in database");
+        } else {
+            log.info("User found in database");
         }
-        appUserRepository.save(user);
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+
+        return new User(user.getUsername(), user.getPassword(), authorities);
     }
-
-    public void deleteUser(Long subscriberId){
-        boolean exists = appUserRepository.existsById(subscriberId);
-        if(!exists){
-            throw new IllegalStateException("User with id " + subscriberId + "does not exist!");
-        }
-        appUserRepository.deleteById(subscriberId);
-    }
-
-    public void updateUser(Long userId, String name, String email){
-        AppUser appUser = appUserRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User with id " + userId + "does not exist!"));
-
-        if(name != null && name.length()>0 && !Objects.equals(appUser.getUserName(), name)){
-            appUser.setUserName(name);
-        }
-
-        if(email != null && email.length()>0 && !Objects.equals(appUser.getEmail(), email)){
-            Optional<AppUser> subscriberOptional = appUserRepository.findSubscriberByEmail(email);
-
-            if(subscriberOptional.isPresent()){
-                throw new IllegalStateException("Email already taken!");
-            }
-
-            appUser.setEmail(email);
-        }
-    }
-
-
 }
