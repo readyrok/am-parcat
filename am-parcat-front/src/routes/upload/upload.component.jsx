@@ -110,8 +110,9 @@ const UploadFile = () => {
 						alert(error);
 					}}
 				/>
-				<div style={{ padding: "10px"}}>
-					<Button variant="contained">Upload</Button>
+				<div style={{ padding: "10px", display: "inline-block" }}>
+					<button>Upload</button>
+					{/* <Button variant="contained">Upload</Button> */}
 				</div>				
 			</form>
 		</Fragment>

@@ -5,6 +5,7 @@ import com.firstchoicereact.amparcat.filters.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();
         TODO findRole
 */
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().antMatchers("/login", "/api/registration", "/files", "/upload").permitAll();
+        http.authorizeRequests().antMatchers("/api/users").authenticated();
+//        http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
