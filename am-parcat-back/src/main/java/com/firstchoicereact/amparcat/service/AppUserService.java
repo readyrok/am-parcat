@@ -28,6 +28,13 @@ public class AppUserService implements UserDetailsService {
 
     public AppUser saveUser(AppUser appUser){
         log.info("Saving new user to database");
+
+        AppUser appUserExists = appUserRepo.findByUsername(appUser.getUsername());
+
+        if(appUserExists != null) {
+            throw new IllegalStateException("Email already taken");
+        }
+
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return appUserRepo.save(appUser);
     }
