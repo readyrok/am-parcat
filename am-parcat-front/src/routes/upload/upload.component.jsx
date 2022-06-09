@@ -28,8 +28,7 @@ const UploadFile = () => {
 			.post(UPLOAD_URL, formData)
 			.then(() => {
 				alert('File Upload success');
-			})
-			.catch((er) => alert('File Upload Error : ', er));
+			});
 	};
 
 	const [plateNumber, setPlateNumber] = useState('');
