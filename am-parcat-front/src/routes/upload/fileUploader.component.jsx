@@ -13,7 +13,7 @@ const FileUploader = ({ onFileSelect, onFileSelectError }) => {
 
 	return (
 		<div className="file-uploader" style={{ padding: "10px"}}>
-			<Button style={{ padding: "10px"}} variant="contained"><input type="file" onChange={handleFileInput} /></Button>
+			<input type="file" onChange={handleFileInput} style={{ padding: "10px"}} />
 		</div>
 	);
 };

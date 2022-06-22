@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -31,23 +33,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
-//        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
-
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-/*
+        http.authorizeRequests().antMatchers(POST, "/login/**").permitAll();
+        http.authorizeRequests().antMatchers("/logout/**").permitAll();
         http.authorizeRequests().antMatchers("/").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user/**");
-
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users").hasRole()
+        http.authorizeRequests().antMatchers("/files/**").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers("/home/**").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers("/api/users/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
-        TODO findRole
-*/
-        http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
-
     }
 
     @Bean

@@ -78,4 +78,6 @@ public class FilesController {
                 .contentType(MediaType.valueOf(fileEntity.getContentType()))
                 .body(fileEntity.getData());
     }
+
+    //TODO DeletePhoto
 }

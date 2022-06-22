@@ -5,10 +5,12 @@ import Slider from './routes/slider/slider.component';
 import UploadFile from './routes/upload/upload.component';
 import PlatesPage from './routes/plates/platesPage.component';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+import Landingpage from './routes/landingPage/landingPage.component';
 
 const App = () => {
 	return (
 		<Routes>
+			<Route path="/landingpage" element={<Landingpage/>}/>
 			<Route path="/" element={<Navbar />}>
 				<Route index element={<Slider />} />
 				<Route path="/upload" element={<UploadFile />} />
