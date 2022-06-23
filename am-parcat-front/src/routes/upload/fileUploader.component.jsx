@@ -12,8 +12,8 @@ const FileUploader = ({ onFileSelect, onFileSelectError }) => {
 	};
 
 	return (
-		<div className="file-uploader" style={{ padding: "10px"}}>
-			<input type="file" onChange={handleFileInput} style={{ padding: "10px"}} />
+		<div className="file-uploader" style={{ padding: "30px 0px 0px 30px", display: "inline-block"}}>
+			<input type="file" onChange={handleFileInput}/>
 		</div>
 	);
 };

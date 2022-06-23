@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,8 @@ public class FileService {
     }
 
     public List<FileEntity> getAllFiles() {
-        return fileRepository.findAll();
+        List<FileEntity> result = fileRepository.findAll();
+        Collections.reverse(result);
+        return result;
     }
 }

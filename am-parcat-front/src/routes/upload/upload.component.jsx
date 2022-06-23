@@ -22,6 +22,7 @@ const UploadFile = () => {
 		formData.append('plate_number', plateNumber);
 		formData.append('file', selectedFile);
 		formData.append('address', address);
+		formData.append('city', city);
 		formData.append('tag', tag);
 		
 		axios
@@ -35,6 +36,7 @@ const UploadFile = () => {
 	const [plateNumber, setPlateNumber] = useState('');
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [address, setAddress] = useState('');
+	const [city, setCity] = useState('');
 	const [tag, setTag] = useState('');
 	// const [plate_number, setPlateNumber] = useState([]);
 
@@ -44,64 +46,75 @@ const UploadFile = () => {
 
 	return (
 		<Fragment>
-			<Typography variant="h3" gutterBottom component="div" style={{ padding: "10px"}}>
+			{/* <Typography variant="h3" gutterBottom component="div" style={{ padding: "30px 0px 0px 30px", color: "#2e3192"}}>
 				Upload your photo
-			</Typography>
+			</Typography> */}
 			{/* <h1>Upload your photo</h1> */}
 			<form onSubmit={submitForm}>
-				<div>
+				<div style={{ padding: "20px 0px 0px 20px"}}>
 					
 						{/* <label htmlFor={plateNumber}>Plate Number: </label> */}
-						<TextField
-							required
-							id="outlined-required"
-							label="Plate number"
-							defaultValue="Ex: B11AAA"
-							style={{ padding: "10px"}}
-							onChange={(e) => setPlateNumber(e.target.value)}
-							/>
+						<div style={{ padding: "10px 0px 0px 10px", display: "inline-block"}}>
+							<TextField
+								required
+								style={{color: "#2e3192"}}
+								id="outlined-required"
+								label="Plate number"
+								defaultValue="Ex: B11AAA"
+								onChange={(e) => setPlateNumber(e.target.value)}
+								/>
+						</div>
+						<div style={{ padding: "10px 0px 0px 10px", display: "inline-block"}}>
+							<TextField
+								required
+								style={{color: "#2e3192"}}
+								id="outlined-required"
+								label="Address"
+								defaultValue="Ex: Ghica Tei 23"
+								onChange={(e) => setAddress(e.target.value)}
+								/>
+						</div>
+						<div style={{ padding: "10px 0px 0px 10px", display: "inline-block"}}>
+							<TextField
+								required
+								style={{color: "#2e3192"}}
+								id="outlined-required"
+								label="City"
+								defaultValue="Ex: Constanta"
+								onChange={(e) => setCity(e.target.value)}
+								/>
+						</div>
+						<div style={{ padding: "10px 0px 0px 10px", display: "inline-block"}}>
+							<TextField
+								style={{color: "#2e3192"}}
+								required
+								id="outlined-required"
+								label="Tags"
+								defaultValue="Ex: BMW"
+								onChange={(e) => setTag(e.target.value)}
+								/>
+						</div>
 						{/* <input
 							type="text"
 							value={plateNumber}
 							placeholder="Ex: B11AAA"
 							
 						/> */}
-					
-					
 						{/* <label htmlFor={address}>Address: </label> */}
-						<TextField
-							required
-							id="outlined-required"
-							label="City"
-							defaultValue="Ex: Constanta"
-							style={{ padding: "10px"}}
-							onChange={(e) => setAddress(e.target.value)}
-							/>
 						{/* <input
 							type="text"
 							value={address}
 							placeholder="Ex: Constanta"
 							onChange={(e) => setAddress(e.target.value)}
 						/> */}
-					
-					
 						{/* <TagInput onTagAdded={(tag) => newTagHandler(tag)} /> */}
 						{/* <label htmlFor={tag}>Tags: </label> */}
-						<TextField
-							required
-							id="outlined-required"
-							label="Tags"
-							defaultValue="Ex: bmw"
-							style={{ padding: "10px"}}
-							onChange={(e) => setTag(e.target.value)}
-							/>
 						{/* <input
 							type="text"
 							value={tag}
 							placeholder="Ex: bmw"
 							onChange={(e) => setTag(e.target.value)}
 						/> */}
-					
 				</div>
 				<FileUploader
 					onFileSelect={(file) => setSelectedFile(file)}
@@ -110,7 +123,7 @@ const UploadFile = () => {
 						alert(error);
 					}}
 				/>
-				<div style={{ padding: "10px"}}>
+				<div style={{ padding: "30px 0px 0px 30px", display: "inline-block"}}>
 					<button>Upload</button>
 					{/* <Button variant="contained">Upload</Button> */}
 				</div>				
