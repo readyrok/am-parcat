@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // import TagInput from '../../components/tags/tagsinput.component';
 
-const UPLOAD_URL = 'http://localhost:8080/files/';
+const UPLOAD_URL = 'http://localhost:8080/files';
 
 // const addToList = (element, list) => {
 // 	return [...list, element];
@@ -30,7 +30,7 @@ const UploadFile = () => {
 			.then(() => {
 				alert('File Upload success');
 			})
-			.catch((er) => alert('File Upload Error : ', er));
+			.catch((er) => alert('File Upload Error: ', er));
 	};
 
 	const [plateNumber, setPlateNumber] = useState('');

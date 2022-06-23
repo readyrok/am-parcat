@@ -6,8 +6,8 @@ const FileUploader = ({ onFileSelect, onFileSelectError }) => {
 		const file = e.target.files[0];
 		console.log('Handle File Fired : ', file);
 		console.log(file)
-		if (file.size > 5000000)
-			onFileSelectError('Filesize can not excede 5 mb !');
+		if (file.size > 1000000)
+			onFileSelectError('Filesize can not excede 1 mb!');
 		else onFileSelect(file);
 	};
 
