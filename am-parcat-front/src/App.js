@@ -6,6 +6,8 @@ import UploadFile from './routes/upload/upload.component';
 import PlatesPage from './routes/plates/platesPage.component';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Landingpage from './routes/landingPage/landingPage.component';
+import UserProfile from './routes/user-profile/user-profile.component';
+import Autenthification from './routes/autenthification/autenthification.component';
 
 const App = () => {
 	return (
@@ -15,7 +17,9 @@ const App = () => {
 				<Route index element={<Slider />} />
 				<Route path="/upload" element={<UploadFile />} />
 				<Route path="plate/*" element={<PlatesPage />} />
-			</Route>
+				<Route path="profile*" element={<UserProfile />} />
+				<Route path="auth" element={<Autenthification />} />
+					</Route>
 		</Routes>
 	);
 };

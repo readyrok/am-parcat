@@ -9,12 +9,8 @@ import '@fontsource/roboto/700.css';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // import TagInput from '../../components/tags/tagsinput.component';
-
 const UPLOAD_URL = 'http://localhost:8080/files/';
 
-// const addToList = (element, list) => {
-// 	return [...list, element];
-// };
 
 const UploadFile = () => {
 	const submitForm = () => {
