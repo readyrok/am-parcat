@@ -4,19 +4,19 @@ import axios from 'axios';
 import FormInput from '../../components/form-input/form-input.component';
 import Button from '../../components/button/button.component';
 import { atom, useAtom } from 'jotai';
+import jwt from 'jwt-decode';
 
 const defaultFormFields = {
 	username: 'sebastian@gmail.com',
 	password: 'pass1234',
 };
 
-const userDetailsAtom = atom([]);
+export const userDetailsAtom = atom({});
 
 function LogIn() {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { username, password } = formFields;
-	const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
-				
+
 	const resetFormField = () => {
 		setFormFields(defaultFormFields);
 	};
@@ -25,8 +25,10 @@ function LogIn() {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value }); //seteaza in formFields doar valorile din parametrul name
 	};
+
+	const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
 	const handleSubmit = async (event) => {
-		console.log('2',userDetails)
+		console.log('initial', userDetails);
 		event.preventDefault();
 
 		var loginFormData = new FormData();
@@ -42,13 +44,15 @@ function LogIn() {
 			data: loginFormData,
 		})
 			.then((res) => {
-				localStorage.setItem('accessToken', res.data.accessToken);
-				localStorage.setItem('refreshToken', res.data.refreshToken);
-				localStorage.setItem('email', username);
-				localStorage.setItem('loggedIn', true);
-				console.log(res.data);
-				console.log('logged In !');
-				setUserDetails(res.data)
+				console.log('raspuns : ',res.data)
+				const token = jwt(res.data.accessToken);
+				console.log('siiiiii tokenizat : ',token)
+				// localStorage.setItem('accessToken', res.data.accessToken);
+				// localStorage.setItem('refreshToken', res.data.refreshToken);
+				// localStorage.setItem('email', username);
+				// localStorage.setItem('loggedIn', true);
+				localStorage.setItem('user_details', token);
+				setUserDetails(jwt(res.data.accessToken));
 				resetFormField();
 			})
 			.catch((err) => {
@@ -90,7 +94,7 @@ function LogIn() {
 					<Button type="button" onClick={() => logoff()}>
 						Log Off
 					</Button>
-					<Button type="button" onClick={() => console.log('999',userDetails)}>
+					<Button type="button" onClick={() => console.log('999', userDetails)}>
 						showdetails
 					</Button>
 				</div>

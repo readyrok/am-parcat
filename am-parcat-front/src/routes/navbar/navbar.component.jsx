@@ -1,16 +1,23 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import './navbar.style.scss';
+import { useAtom } from 'jotai';
+import { userDetailsAtom } from '../testDragos/logIn.component';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-
+import './navbar.style.scss';	
 const Navbar = () => {
 	const [userLoggedIn, setUserLoggedIn] = useState(false);
+	const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
 
-	useEffect(() => {
-		const newLoginStatus = setUserLoggedIn(localStorage.getItem('loggedIn'));
-		return newLoginStatus;
-	}, []);
+	// useEffect(() => {
+	// 	const newLoginStatus = setUserLoggedIn(localStorage.getItem('loggedIn'));
+	// 	return newLoginStatus;
+	// }, []);
+
+	// useEffect(,[userDetails])
+
+	console.log('Continut userDetails in navbar', userDetails);
+	console.log('Lungime key userdetails', Object.keys(userDetails).length !== 0);
 
 	return (
 		<Fragment>
@@ -29,8 +36,8 @@ const Navbar = () => {
 					</Link>
 					{userLoggedIn ? (
 						<Link className="nav-link" to="/logoff">
-							Log Off -{' '}
-							{localStorage.getItem('email').split('@')[0].toUpperCase()}
+							Log Off -{userDetails.sub.split('@')[0].toUpperCase()}
+							{/* {localStorage.getItem('email').split('@')[0].toUpperCase()} */}
 						</Link>
 					) : (
 						<Link className="nav-link" to="/login">
