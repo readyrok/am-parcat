@@ -25,7 +25,7 @@ const Slider = () => {
 				// console.log('Trying fetch')
 				axios
 					.get('http://localhost:8080/files/', myConfig)
-					.then((res) => setData(res.data))
+					.then((res) => {setData(res.data)})
 					.catch((err) => console.log(err));
 
 			// const {data: response} = await axios.get('http://localhost:8080/files');
@@ -42,6 +42,7 @@ const Slider = () => {
 			{/* <Typography variant="h3" gutterBottom component="div" style={{ padding: "10px 0px 0px 30px", color: "#2e3192", textAlign: "center"}}>Photos</Typography> */}
 			<div className="img-grid">
 				{data.map((photo) => {
+					console.log(photo)
 					return (
 						<motion.div
 							className="img-wrap"

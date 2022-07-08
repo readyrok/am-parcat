@@ -9,24 +9,34 @@ import '@fontsource/roboto/700.css';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // import TagInput from '../../components/tags/tagsinput.component';
+import { useAtom } from 'jotai';
+import { userTokensAtom } from '../testDragos/logIn.component';
 
-const UPLOAD_URL = 'http://localhost:8080/files';
+const UPLOAD_URL = 'http://localhost:8080/files/';
 
 // const addToList = (element, list) => {
 // 	return [...list, element];
 // };
 
 const UploadFile = () => {
+	const [userTokens, setUserTokens] = useAtom(userTokensAtom);
+	
 	const submitForm = () => {
+		const myConfig = {
+			headers: {
+				Authorization: `Bearer ${userTokens.accessToken}`,
+			},
+		};
+	
 		const formData = new FormData();
 		formData.append('plate_number', plateNumber);
 		formData.append('file', selectedFile);
 		formData.append('address', address);
 		formData.append('city', city);
 		formData.append('tag', tag);
-		
+		console.log("config header sent in axios",myConfig.headers)
 		axios
-			.post(UPLOAD_URL, formData)
+			.post(UPLOAD_URL, formData, myConfig)
 			.then(() => {
 				alert('File Upload success');
 			})
