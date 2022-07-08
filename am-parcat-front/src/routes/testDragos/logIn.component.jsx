@@ -5,6 +5,7 @@ import FormInput from '../../components/form-input/form-input.component';
 import Button from '../../components/button/button.component';
 import { atom, useAtom } from 'jotai';
 import jwt from 'jwt-decode';
+import { Alert, Snackbar } from '@mui/material';
 
 const defaultFormFields = {
 	username: 'sebastian@gmail.com',
@@ -12,25 +13,29 @@ const defaultFormFields = {
 };
 
 export const userDetailsAtom = atom({});
+export const userTokensAtom = atom({});
 
 function LogIn() {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { username, password } = formFields;
+	const [open, setOpen] = React.useState(false);
+	const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
+	const [userTokens, setUserTokens] = useAtom(userTokensAtom);
 
 	const resetFormField = () => {
 		setFormFields(defaultFormFields);
 	};
-
+	const handleClose = () => {
+		setOpen(false);
+	};
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value }); //seteaza in formFields doar valorile din parametrul name
 	};
 
-	const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
+	
 	const handleSubmit = async (event) => {
-		console.log('initial', userDetails);
 		event.preventDefault();
-
 		var loginFormData = new FormData();
 		const { username, password } = formFields;
 
@@ -44,30 +49,21 @@ function LogIn() {
 			data: loginFormData,
 		})
 			.then((res) => {
-				console.log('raspuns : ',res.data)
 				const token = jwt(res.data.accessToken);
-				console.log('siiiiii tokenizat : ',token)
-				// localStorage.setItem('accessToken', res.data.accessToken);
-				// localStorage.setItem('refreshToken', res.data.refreshToken);
-				// localStorage.setItem('email', username);
-				// localStorage.setItem('loggedIn', true);
 				localStorage.setItem('user_details', token);
 				setUserDetails(jwt(res.data.accessToken));
+				setUserTokens(res.data)
 				resetFormField();
 			})
 			.catch((err) => {
-				if (err.response.status === 403) console.log('WRONG USER/PASSWORD ! ');
+				if (err.response.status === 403)
+					setOpen(true);
 				else console.log(err);
 			});
 	};
 
-	// signIn('sebastian@gmail.com', 'pass1234');
-	const logoff = () => {
-		setUserDetails([]);
-	};
 	return (
 		<div className="sign-up-container">
-			<h2>I already have an account</h2>
 			<span>Sign in with your Email and Password</span>
 			<form onSubmit={handleSubmit}>
 				<FormInput
@@ -91,12 +87,18 @@ function LogIn() {
 					{/* <Button type="button" buttonType="google" onClick={logGoogleUser}>
 						SIGN IN WITH GOOGLE
 					</Button> */}
-					<Button type="button" onClick={() => logoff()}>
-						Log Off
-					</Button>
 					<Button type="button" onClick={() => console.log('999', userDetails)}>
 						showdetails
 					</Button>
+					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+						<Alert
+							onClose={handleClose}
+							severity="error"
+							sx={{ width: '100%' }}
+						>
+							Wrong User/Password
+						</Alert>
+					</Snackbar>
 				</div>
 			</form>
 		</div>

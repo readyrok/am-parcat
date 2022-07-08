@@ -1,20 +1,31 @@
 import { Fragment, useState, useEffect } from 'react';
 import './slider.css';
 import Modal from '../../components/modal/modal';
-import { Typography } from '@mui/material';
 import { motion } from 'framer-motion';
-
-const axios = require('axios');
+import { useAtom } from 'jotai';
+import { userTokensAtom } from '../testDragos/logIn.component';
+import axios from 'axios'
 
 const Slider = () => {
 	const [data, setData] = useState([]);
 	const [selectedImage, setSelectedImage] = useState(null);
-
+	const [userTokens, setUserTokens] = useAtom(userTokensAtom);
+	
 	useEffect(()=>{
 		const getPhotos = async () => {
+			const myConfig = {
+				headers: {
+				   "Authorization": `Bearer ${userTokens.accessToken}` 
+				}
+			 }
+			 console.log('Aici :',myConfig)
+			
 			try {
-				const {data: response} = await axios.get('http://localhost:8080/files');
-				setData(response);
+				console.log('Trying fetch')
+				axios.get('http://localhost:8080/files',myConfig).then(res=>console.log(res)).catch(err=>console.log(err));
+				
+				// const {data: response} = await axios.get('http://localhost:8080/files');
+				// setData(response);
 			} catch (error) {
 				console.error(error);
 			} 

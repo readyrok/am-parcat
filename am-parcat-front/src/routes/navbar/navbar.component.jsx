@@ -1,23 +1,18 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment} from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { userDetailsAtom } from '../testDragos/logIn.component';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import './navbar.style.scss';	
+import './navbar.style.scss';
+import { Button } from '@mui/material';
 const Navbar = () => {
-	const [userLoggedIn, setUserLoggedIn] = useState(false);
+
 	const [userDetails, setUserDetails] = useAtom(userDetailsAtom);
 
-	// useEffect(() => {
-	// 	const newLoginStatus = setUserLoggedIn(localStorage.getItem('loggedIn'));
-	// 	return newLoginStatus;
-	// }, []);
-
-	// useEffect(,[userDetails])
-
-	console.log('Continut userDetails in navbar', userDetails);
-	console.log('Lungime key userdetails', Object.keys(userDetails).length !== 0);
+	const handleLogOff = () => {
+		setUserDetails({});
+	};
 
 	return (
 		<Fragment>
@@ -34,11 +29,11 @@ const Navbar = () => {
 					<Link className="nav-link" to="/upload">
 						<AddAPhotoIcon style={{ color: '#2e3192' }}></AddAPhotoIcon>
 					</Link>
-					{userLoggedIn ? (
-						<Link className="nav-link" to="/logoff">
+					{Object.keys(userDetails).length !== 0 ? (
+						<Button className="nav-link" onClick={handleLogOff}>
 							Log Off -{userDetails.sub.split('@')[0].toUpperCase()}
 							{/* {localStorage.getItem('email').split('@')[0].toUpperCase()} */}
-						</Link>
+						</Button>
 					) : (
 						<Link className="nav-link" to="/login">
 							Log In
